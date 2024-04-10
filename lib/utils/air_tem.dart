@@ -50,7 +50,7 @@ class _AirConditionerControllerState extends State<AirConditionerController> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red.shade300,
+                        backgroundColor: Colors.red.shade300,
                       ),
                       onPressed: increaseTemperature,
                       child: Icon(Icons.arrow_drop_up, color: Colors.white),
@@ -64,7 +64,7 @@ class _AirConditionerControllerState extends State<AirConditionerController> {
                     // SizedBox(height: 10),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blue.shade300,
+                        backgroundColor: Colors.blue.shade300,
                       ),
                       onPressed: decreaseTemperature,
                       child: Icon(Icons.arrow_drop_down, color: Colors.white),
@@ -108,7 +108,7 @@ class _AirConditionerControllerState extends State<AirConditionerController> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red.shade300,
+                        backgroundColor: Colors.red.shade300,
                       ),
                       onPressed: increaseTemperature2,
                       child: Icon(Icons.arrow_drop_up, color: Colors.white),
@@ -122,7 +122,7 @@ class _AirConditionerControllerState extends State<AirConditionerController> {
                     // SizedBox(height: 10),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blue.shade300,
+                        backgroundColor: Colors.blue.shade300,
                       ),
                       onPressed: decreaseTemperature2,
                       child: Icon(Icons.arrow_drop_down, color: Colors.white),

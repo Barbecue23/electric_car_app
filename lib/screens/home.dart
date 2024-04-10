@@ -89,7 +89,7 @@ floatingActionButton: isCharging
                 Column(
                   children: [
                     Container(
-                        height: 303,
+                        height: 330,
                         width: double.infinity,
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(

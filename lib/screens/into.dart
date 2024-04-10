@@ -24,7 +24,7 @@ class _IntoState extends State<Into> {
         _isLogoExpanded = true;
       });
     });
-    // นำทางไปยังหน้าถัดไปหลังจากช่วงเวลาหนึ่ง 8
+    // นำทางไปยังหน้าถัดไปหลังจากช่วงเวลาหนึ่ง
     Timer(Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,

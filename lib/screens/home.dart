@@ -41,8 +41,9 @@ class _HomeState extends State<Home> {
           SizedBox(width: 10),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: InkWell(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+floatingActionButton: isCharging
+    ? InkWell(
         onTap: () {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const ChargingScreen()));
@@ -53,18 +54,21 @@ class _HomeState extends State<Home> {
             height: 60,
             width: 60,
             decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xff7fff00),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color(0xff7fff00).withOpacity(0.3),
-                      offset: const Offset(5, 5),
-                      blurRadius: 10),
-                  BoxShadow(
-                      color: Color(0xff7fff00).withOpacity(0.3),
-                      offset: const Offset(-3, -3),
-                      blurRadius: 10)
-                ]),
+              shape: BoxShape.circle,
+              color: const Color(0xff7fff00),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xff7fff00).withOpacity(0.3),
+                  offset: const Offset(5, 5),
+                  blurRadius: 10,
+                ),
+                BoxShadow(
+                  color: const Color(0xff7fff00).withOpacity(0.3),
+                  offset: const Offset(-3, -3),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
             alignment: Alignment.center,
             child: const Icon(
               Icons.electric_car,
@@ -72,7 +76,9 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-      ),
+      )
+    : null,
+
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: ListView(
@@ -152,7 +158,9 @@ class _HomeState extends State<Home> {
                                           margin: EdgeInsets.only(right: 10),
                                           padding: EdgeInsets.all(3),
                                           decoration: BoxDecoration(
-                                            color: isCMode ? Color(0xff7fff00): Color(0xff808080),
+                                            color: isCMode
+                                                ? Colors.blue.shade400
+                                                : Color(0xff808080),
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                           ),
@@ -182,7 +190,9 @@ class _HomeState extends State<Home> {
                                           margin: EdgeInsets.only(right: 10),
                                           padding: EdgeInsets.all(3),
                                           decoration: BoxDecoration(
-                                            color: isNMode ? Color(0xff7fff00): Color(0xff808080),
+                                            color: isNMode
+                                                ? Colors.green
+                                                : Color(0xff808080),
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                           ),
@@ -211,7 +221,9 @@ class _HomeState extends State<Home> {
                                           margin: EdgeInsets.only(right: 10),
                                           padding: EdgeInsets.all(3),
                                           decoration: BoxDecoration(
-                                            color: isPMode ? Color(0xff7fff00): Color(0xff808080),
+                                            color: isPMode
+                                                ? Color.fromARGB(255, 255, 1, 1)
+                                                : Color(0xff808080),
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                           ),
@@ -588,8 +600,7 @@ class _HomeState extends State<Home> {
                 const SizedBox(
                   height: 20,
                 ),
-                
-                  InkWell(
+                InkWell(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => Door()),
@@ -654,7 +665,6 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                
                 const SizedBox(
                   height: 20,
                 ),
@@ -681,13 +691,58 @@ class _HomeState extends State<Home> {
                       const SizedBox(
                         width: 20,
                       ),
-                      Text(
-                        "Service Reminder!",
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "Poppins"),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Service Reminder!",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Poppins"),
+                          ),
+                          FutureBuilder(
+                            future: ApiCaller().getService('Service'),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<String> data) {
+                              if (data.connectionState ==
+                                  ConnectionState.waiting) {
+                                return CircularProgressIndicator();
+                              } else {
+                                if (data.hasError) {
+                                  return Text('Error: ${data.error}');
+                                } else {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        ' ${data.data!.substring(0, 16)}',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Poppins",
+                                        ),
+                                      ),
+                                      Text(
+                                        '${data.data!.substring(17, 34)}',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Poppins",
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
+                              }
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),

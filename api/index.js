@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(cors());
 
 
-const mockUsers = [
+const mockMode = [
     {
         id: 1,
         name: "Comfort",
@@ -21,21 +21,34 @@ const mockUsers = [
     },
 ];
 
-// root path
-app.get('/', function (req, res) {
-    res.send('Hello World from Node.js + Express');
-});
+const mockDateTime = [
+    {
+        id: 1,
+        name: "2022-01-01 09:00 ",
+    },
+    {
+        id: 2,
+        name: "2022-01-15 09:30 ",
+    }
+]
+
+// สร้างเส้นทางสําหรับเข้าถึงค่าในฐานข้อมูล
 
 // เส้นทางใช้เมธอด GET เพื่อรับข้อมูล mode
 app.get('/mode', function (req, res) {
-    res.json(mockUsers);
+    res.json(mockMode);
+});
+
+// เส้นทางใช้เมธอด GET เพื่อรับข้อมูล DateTime
+app.get('/Service', function (req, res) {
+    res.json(mockDateTime);
 });
 
 // เส้นทางใช้เมธอด POST เพื่อค้นหาข้อมูล mode
 app.post('/getmode', function (req, res) {
     const { name } = req.body;
     const foundModes = [];
-    mockUsers.forEach(user => {
+    mockMode.forEach(user => {
         user.mode.forEach(mode => {
             if (mode.name === name) {
                 foundModes.push(mode);

@@ -139,7 +139,7 @@ floatingActionButton: isCharging
                                 return CircularProgressIndicator();
                               } else {
                                 if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
+                                  return Text('Error: ${snapshot.error}',style: TextStyle(color: Colors.red),);
                                 } else {
                                   return Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -712,7 +712,7 @@ floatingActionButton: isCharging
                                 return CircularProgressIndicator();
                               } else {
                                 if (data.hasError) {
-                                  return Text('Error: ${data.error}');
+                                  return Text('Error: ${data.error}',style: TextStyle(color: Colors.red),);
                                 } else {
                                   return Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
